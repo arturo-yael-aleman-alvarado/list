@@ -1,59 +1,74 @@
 package uaslp.objetos.list.linkedlist;
 
-public class LinkedList{
+import uaslp.objetos.list.List;
+import uaslp.objetos.list.exception.NotNullValuesAllowedException;
+import uaslp.objetos.list.exception.NotValidIndexException;
 
-    private static final int UNA_CONSTANTE = 10;
-
-    private Node head;
-    private Node tail;
+public class LinkedList<T> implements List<T> {
+    private Node<T> head;
+    private Node<T> tail;
     private int size;
 
-    public void addAtTail (String data){
-        Node node = new Node(data);
+    @Override
+    public void addAtTail(T data) throws NotNullValuesAllowedException{
+        if(data == null){
+            throw new NotNullValuesAllowedException();
+        }
 
-        if (size == 0){
-            head = node;
-        } else {
-            tail.next = node;
-            node.previous = tail;
+        Node<T> node=new Node<>(data);
+
+        //node.data=data;
+
+        if(size==0)
+        {
+            head=node;
+        }else{
+            tail.next=node;
+            node.previous=tail;
         }
 
         tail = node;
-        size ++;
+        size++;
     }
 
-    public void addAtFront(String data){
-        Node node = new Node(data);
+    @Override
+    public void addAtFront(T data) throws NotNullValuesAllowedException{
+        if(data == null){
+            throw new NotNullValuesAllowedException();
+        }
 
-        if (size == 0){
+        Node<T> node = new Node<>(data);
+
+        if (size == 0) {
             tail = node;
-        }else {
+        } else {
             head.previous = node;
         }
         node.next = head;
         head = node;
 
-        size ++;
+        size++;
     }
 
-    public void remove(int index){
-        Node node = findNode(index);
+    @Override
+    public void remove(int index) throws NotValidIndexException{
+        Node<T> node = findNode(index);
 
-        if (node == null){
+        if(node == null){
             return;
         }
 
-        if (size == 1){
+        if(size == 1){
             head = null;
             tail = null;
-        } else if (node == head){
+        } else if(node == head){
             head = node.next;
-            if (head != null){
+            if(head != null){
                 head.previous = null;
             }
-        } else if (node == tail){
+        } else if(node == tail){
             tail = node.previous;
-            if (tail != null){
+            if(tail != null){
                 tail.next = null;
             }
         } else {
@@ -63,48 +78,39 @@ public class LinkedList{
         size--;
     }
 
+    @Override
     public void removeAll(){
-        head = null;
-        tail = null;
-        size = 0;
+        head=null;
+        tail=null;
+        size=0;
     }
 
-    public void setAt(int index, String data){
-        Node node = findNode(index);
+    @Override
+    public T getAt(int index) throws NotValidIndexException{
+        Node<T> node = findNode(index);
 
-        if (node != null){
+        return node == null ? null : node.data;
+    }
+
+    @Override
+    public void setAt(int index,T data) throws NotValidIndexException, NotNullValuesAllowedException {
+        if(data == null){
+            throw new NotNullValuesAllowedException();
+        }
+
+        Node<T> node = findNode(index);
+
+        if(node != null){
             node.data = data;
         }
     }
 
-    /*
-     * @param index 0-index
-     * @return element at position index
-     */
-
-    public String getAt(int index){
-        Node node = findNode(index);
-
-        return node == null ? null : node.data;
-    }
-    /*
-    public void removeAllWithValue(String data){
-    }
-    */
-    public int getSize(){
-        return size;
-    }
-
-    public LinkedListIterator getIterator(){
-        return new LinkedListIterator(head);
-    }
-
-    private Node findNode(int index){
+    private Node<T> findNode(int index) throws NotValidIndexException{
         if(index < 0 || index >= size){
-            return null;
+            throw new NotValidIndexException(index); //throw recibe un parametro y recibe un objeto(por eso es new)
         }
 
-        Node node = head;
+        Node<T> node = head;
         int currentIndex = 0;
 
         while (currentIndex != index) {
@@ -113,5 +119,20 @@ public class LinkedList{
         }
 
         return node;
+    }
+
+    /*
+    public void removeAllWithValue(T data){
+    }*/
+
+    @Override
+    public int getSize(){
+        return size;
+    }
+
+    @Override
+    public LinkedListIterator<T> getIterator(){
+        //return  null;
+        return new LinkedListIterator<>(head);
     }
 }

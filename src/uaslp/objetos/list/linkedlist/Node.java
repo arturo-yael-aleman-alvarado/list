@@ -1,11 +1,11 @@
 package uaslp.objetos.list.linkedlist;
 
-class Node{
-    String data; //Ya son package-private
-    Node next;
-    Node previous;
+class Node <T> {
+    T data; //Ya son package-private
+    Node<T> next;
+    Node<T> previous;
 
-    Node(String data){
+    Node(T data){
         this.data = data;
     }
 }
