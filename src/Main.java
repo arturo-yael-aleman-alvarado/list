@@ -19,7 +19,7 @@ public class Main {
         System.out.println();
         System.out.println("\n\t ArrayList ");
         try {
-            exercise(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); //Al llamado del método se le llama firma
+            exercise(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
         }catch (NotValidIndexException e){
             System.out.println();
             System.out.println("\n\t Error: " + e.getMessage());
