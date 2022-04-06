@@ -1,43 +1,38 @@
-//import java.util.Iterator;
-//import java.util.LinkedList;
-//import java.util.ArrayList;
-//import java.util.List;
-//import uaslp.objetos.list.Iterator;
-//import uaslp.objetos.list.List;
 package uaslp.objetos.list;
+
 import uaslp.objetos.list.arraylist.ArrayList;
 import uaslp.objetos.list.linkedlist.LinkedList;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 import uaslp.objetos.list.exception.NotValidIndexException;
-import uaslp.objetos.list.linkedlist.LinkedListIterator;
 
 
 public class Main {
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args){
+
         System.out.println();
-        System.out.println("\n\t ArrayList ");
+        System.out.println("----------------Prueba ArrayList----------------");
         try {
-            exercise(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+            exercise(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()); //Al llamado del método se le llama firma
         }catch (NotValidIndexException e){
             System.out.println();
-            System.out.println("\n\t Error: " + e.getMessage());
+            System.out.println("Ocurrió un error: " + e.getMessage());
             e.printStackTrace();
         }catch (NotNullValuesAllowedException e){
             System.out.println(e.getMessage());
         }
         System.out.println();
-        System.out.println("\n\t LinkedList ");
+        System.out.println("----------------Prueba LinkedList----------------");
         try {
             exercise(new LinkedList<>(), new LinkedList<>(), new LinkedList<>());
         }catch (NotValidIndexException e){
             System.out.println();
-            System.out.println("\n\t Error: " + e.getMessage());
+            System.out.println("Ocurrió un error: " + e.getMessage());
         }catch (NotNullValuesAllowedException e){
             System.out.println(e.getMessage());
         }
     }
+
 
     public static void exercise(List<String> team1, List<String> team2, List<String> team3)  throws NotValidIndexException, NotNullValuesAllowedException
     {

@@ -1,5 +1,6 @@
 package uaslp.objetos.list.linkedlist;
 
+import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.List;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 import uaslp.objetos.list.exception.NotValidIndexException;
@@ -53,10 +54,6 @@ public class LinkedList<T> implements List<T> {
     @Override
     public void remove(int index) throws NotValidIndexException{
         Node<T> node = findNode(index);
-
-        if(node == null){
-            return;
-        }
 
         if(size == 1){
             head = null;
