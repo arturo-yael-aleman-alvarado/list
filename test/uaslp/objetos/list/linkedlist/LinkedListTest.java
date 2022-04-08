@@ -8,6 +8,7 @@ import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 import uaslp.objetos.list.exception.NotValidIndexException;
 
 public class LinkedListTest {
+
     /*
     Inicializacion / Preparacion
     Ejecucion -> Llamar al metodo probado
@@ -23,7 +24,7 @@ public class LinkedListTest {
         int sizeOfList = list.getSize();
 
         //Then:
-        Assertions.assertEquals(0,sizeOfList,"Size of list after creation must be zero."); //Valida que el tamaño sea 1
+        Assertions.assertEquals(0,sizeOfList,"Size of list after creation must be zero.");
     }
 
     @Test
