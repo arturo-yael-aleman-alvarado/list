@@ -2,7 +2,6 @@ package uaslp.objetos.list.linkedlist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import uaslp.objetos.list.List;
 import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 import uaslp.objetos.list.exception.NotValidIndexException;
@@ -10,15 +9,16 @@ import uaslp.objetos.list.exception.NotValidIndexException;
 public class LinkedListTest {
 
     /*
-    Inicializacion / Preparacion
-    Ejecucion -> Llamar al metodo probado
+    Inicialización / Preparación
+    Ejecución -> Llamar al método probado
+    Validación -> debe de ser automática
     TDD -> Test Driven Development
      */
 
-    @Test //Lo convierte en unit test
+    @Test
     public void givenANewList_whenGetSize_thenResultIsZero(){
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         //When:
         int sizeOfList = list.getSize();
@@ -111,7 +111,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenRemove_thenSizeIsOne() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -128,7 +128,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenRemoveIndex3_thenSizeIsThrown() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -152,7 +152,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenAddAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -164,7 +164,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenSetAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -176,7 +176,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenSetAtIndex3_thenSizeIsThrown() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -188,7 +188,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenRemoveIndex1_thenSizeIsOne() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
         list.addAtFront("Hola");
         list.addAtTail("Mundo");
 
@@ -205,7 +205,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithThreeElements_whenRemoveIndex1_thenSizeIsTwo() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         list.addAtTail("Mundo");
         list.addAtTail("Cruel");
@@ -225,7 +225,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithThreeElements_whenRemoveElementAtTail_thenSizeIsTwo() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         list.addAtFront("Adiós");
         list.addAtTail("Mundo");
@@ -245,7 +245,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithThreeElements_whenRemoveAll_thenSizeIsZero() throws NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         list.addAtFront("Adiós");
         list.addAtTail("Mundo");
@@ -263,7 +263,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithTwoElements_whenSetAt_thenElementIsModified() throws NotValidIndexException, NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         list.addAtTail("Mundo");
         list.addAtFront("Adiós");
@@ -282,7 +282,7 @@ public class LinkedListTest {
     @Test
     public void givenAListWithThreeElements_whenGetIterator_thenIteratorWorksOverThreeElements() throws NotNullValuesAllowedException {
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         list.addAtFront("Adiós");
         list.addAtTail("Mundo");
@@ -308,7 +308,7 @@ public class LinkedListTest {
     @Test
     public void givenANewList_whenGetAt_thenExceptionIsThrown(){
         //Given:
-        LinkedList<String> list=new LinkedList<>(); //Crea un objeto de la lista
+        LinkedList<String> list=new LinkedList<>();
 
         //When:
         try {
