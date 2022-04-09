@@ -1,9 +1,8 @@
-package test.uaslp.objetos.list.arraylist;
+package uaslp.objetos.list.arraylist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import uaslp.objetos.list.Iterator;
-import uaslp.objetos.list.arraylist.ArrayList;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 
 public class ArrayListTest {
@@ -21,7 +20,7 @@ public class ArrayListTest {
         int sizeOfList = array.getSize();
 
         //Then:
-        Assertions.assertEquals(3, sizeOfList, "Expected size of 3.");
+        Assertions.assertEquals(3, sizeOfList, "Expected size of 3."); //Valida que el tamaño sea 3
         Assertions.assertEquals(array.getAt(0),"Help");
         Assertions.assertEquals(array.getAt(1),"Adios");
         Assertions.assertEquals(array.getAt(2),"Hola");
@@ -30,7 +29,7 @@ public class ArrayListTest {
     @Test
     public void givenAListWithTwoElements_whenAddAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
         //Given:
-        ArrayList<String> array=new ArrayList<>();
+        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
         array.addAtFront("Hola");
         array.addAtTail("Mundo");
 
@@ -42,7 +41,7 @@ public class ArrayListTest {
     @Test
     public void givenAListWithTwoElements_whenSetAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
         //Given:
-        ArrayList<String> array=new ArrayList<>();
+        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
         array.addAtFront("Hola");
         array.addAtTail("Mundo");
 
@@ -58,14 +57,15 @@ public class ArrayListTest {
         array.addAtFront("Hola");
         array.addAtTail("Mundo");
         //When:
-        //Then:
+        //Then:  aqui el when y el then están mezclados
+        //"Metodo No Primitivo"
         Assertions.assertThrows(NotNullValuesAllowedException.class, ()->array.setAt(0,null)); //valida que la excepcion NotValidIndexException es lanzada cuando llamo al setAt
     }
 
     @Test
     public void givenAListWithTwoElements_whenAddAtFrontNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
         //Given:
-        ArrayList<String> array=new ArrayList<>();
+        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
         array.addAtFront("Hola");
         array.addAtTail("Mundo");
 
@@ -83,7 +83,7 @@ public class ArrayListTest {
         int sizeOfList = array.getSize();
 
         //Then:
-        Assertions.assertEquals(0, sizeOfList, "Size of list after creation must be zero.");
+        Assertions.assertEquals(0, sizeOfList, "Size of list after creation must be zero."); //Valida que el tamaño sea 1
     }
 
     @Test
