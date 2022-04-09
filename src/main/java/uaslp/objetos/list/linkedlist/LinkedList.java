@@ -7,7 +7,7 @@ import uaslp.objetos.list.exception.NotValidIndexException;
 public class LinkedList<T> implements List<T> {
     private Node<T> head;
     private Node<T> tail;
-    private int size;
+    private int size = 1;
 
     @Override
     public void addAtTail(T data) throws NotNullValuesAllowedException{
