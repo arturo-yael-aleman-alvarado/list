@@ -1,36 +1,37 @@
 package uaslp.objetos.list.linkedlist;
 
+import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.List;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
 import uaslp.objetos.list.exception.NotValidIndexException;
 
-public class LinkedList<T> implements List<T> {
+public class LinkedList <T> implements List <T> {
+
     private Node<T> head;
     private Node<T> tail;
     private int size;
 
-    @Override
-    public void addAtTail(T data) throws NotNullValuesAllowedException{
+    public void addAtTail(T data) throws NotNullValuesAllowedException {
+
         if(data == null){
             throw new NotNullValuesAllowedException();
         }
 
-        Node<T> node=new Node<>(data);
+        Node<T> node = new Node<>(data);
 
-        if(size==0)
-        {
-            head=node;
-        }else{
-            tail.next=node;
-            node.previous=tail;
+        if (size == 0) {
+            head = node;
+        } else {
+            tail.next = node;
+            node.previous = tail;
         }
 
         tail = node;
         size++;
     }
 
-    @Override
-    public void addAtFront(T data) throws NotNullValuesAllowedException{
+    public void addAtFront(T data) throws NotNullValuesAllowedException {
+
         if(data == null){
             throw new NotNullValuesAllowedException();
         }
@@ -48,8 +49,7 @@ public class LinkedList<T> implements List<T> {
         size++;
     }
 
-    @Override
-    public void remove(int index) throws NotValidIndexException{
+    public void remove(int index) {
         Node<T> node = findNode(index);
 
         if(size == 1){
@@ -57,14 +57,8 @@ public class LinkedList<T> implements List<T> {
             tail = null;
         } else if(node == head){
             head = node.next;
-            if(head != null){
-                head.previous = null;
-            }
         } else if(node == tail){
             tail = node.previous;
-            if(tail != null){
-                tail.next = null;
-            }
         } else {
             node.previous.next = node.next;
             node.next.previous = node.previous;
@@ -72,36 +66,45 @@ public class LinkedList<T> implements List<T> {
         size--;
     }
 
-    @Override
-    public void removeAll(){
-        head=null;
-        tail=null;
-        size=0;
+    public void removeAll() {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
-    @Override
-    public T getAt(int index) throws NotValidIndexException{
-        Node<T> node = findNode(index);
+    public void setAt(int index, T data) throws NotNullValuesAllowedException {
 
-        return node == null ? null : node.data;
-    }
-
-    @Override
-    public void setAt(int index,T data) throws NotValidIndexException, NotNullValuesAllowedException {
         if(data == null){
             throw new NotNullValuesAllowedException();
         }
 
         Node<T> node = findNode(index);
 
-        if(node != null){
-            node.data = data;
-        }
+        node.data = data;
     }
 
-    private Node<T> findNode(int index) throws NotValidIndexException{
+    /**
+     * @param index 0-index
+     * @return element at position index
+     */
+    public T getAt(int index) {
+        Node<T> node = findNode(index);
+
+        return node == null ? null : node.data;
+    }
+
+    public Iterator<T> getIterator() {
+        return new LinkedListIterator<>(head);
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    private Node<T> findNode(int index) {
+
         if(index < 0 || index >= size){
-            throw new NotValidIndexException(index); //throw recibe un parametro y recibe un objeto(por eso es new)
+            throw new NotValidIndexException(index);
         }
 
         Node<T> node = head;
@@ -113,20 +116,5 @@ public class LinkedList<T> implements List<T> {
         }
 
         return node;
-    }
-
-    /*
-    public void removeAllWithValue(T data){
-    }*/
-
-    @Override
-    public int getSize(){
-        return size;
-    }
-
-    @Override
-    public LinkedListIterator<T> getIterator(){
-        //return  null;
-        return new LinkedListIterator<>(head);
     }
 }

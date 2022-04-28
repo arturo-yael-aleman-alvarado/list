@@ -2,306 +2,333 @@ package uaslp.objetos.list.arraylist;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import uaslp.objetos.list.Iterator;
 import uaslp.objetos.list.exception.NotNullValuesAllowedException;
+import uaslp.objetos.list.exception.NotValidIndexException;
 
 public class ArrayListTest {
 
+    // INICIALIZACIÓN / PREPARACIÓN
+    // EJECUCIÓN --> Llamar al método probado
+    // VALIDACIÓN
+
+    // TDD -> Test Driven Development
+
     @Test
-    public void givenASizeOfNewList_whenGetSize_thenResultIsThree() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array=new ArrayList<>(2);
+    public void givenANewList_whenGetSize_thenResultIsZero() {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtFront("Hola");
-        array.addAtFront("Adios");
+        // When:
+        int sizeOfList = list.getSize();
 
-        //When:
-        array.addAtFront("Help");
-        int sizeOfList = array.getSize();
-
-        //Then:
-        Assertions.assertEquals(3, sizeOfList, "Expected size of 3."); //Valida que el tamaño sea 3
-        Assertions.assertEquals(array.getAt(0),"Help");
-        Assertions.assertEquals(array.getAt(1),"Adios");
-        Assertions.assertEquals(array.getAt(2),"Hola");
+        // Then:
+        Assertions.assertEquals(0, sizeOfList, "Size of list after creation must be zero");
     }
 
     @Test
-    public void givenAListWithTwoElements_whenAddAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
-        //Given:
-        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
+    public void givenANewList_whenGetAt_thenExceptionIsThrown() {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        //Then:
-        Assertions.assertThrows(NotNullValuesAllowedException.class,()->array.addAtTail(null));
+        // When:
+        try {
+            list.getAt(0);
+            Assertions.fail("An exception should be thrown getting element zero");
+        } catch (NotValidIndexException ex) {
+            // Exception was thrown
+        }
     }
 
     @Test
-    public void givenAListWithTwoElements_whenSetAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
-        //Given:
-        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
+    public void givenANewList_whenAddAtFrontAnElement_thenSizeIsOne() throws NotNullValuesAllowedException {
+        // Given
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        //Then:
-        Assertions.assertThrows(NotNullValuesAllowedException.class,()->array.setAt(0,null));
+        // When
+        list.addAtFront("Hola");
+
+        // Then
+        int size = list.getSize();
+
+        Assertions.assertEquals(1, size);
+        Assertions.assertEquals("Hola", list.getAt(0));
     }
 
-    @Test //esto dice que es un test
-    public void givenAListWithTwoElements_whenSetAtNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
-        //Given
-        ArrayList<String> array = new ArrayList<>();
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
-        //When:
-        //Then:  aqui el when y el then están mezclados
-        //"Metodo No Primitivo"
-        Assertions.assertThrows(NotNullValuesAllowedException.class, ()->array.setAt(0,null)); //valida que la excepcion NotValidIndexException es lanzada cuando llamo al setAt
+    @Test
+    public void givenAListWith1Element_whenAddAtFrontAnElement_thenSizeIsTwo() throws NotNullValuesAllowedException {
+        // Given
+        ArrayList<String> list = new ArrayList<>();
+
+        list.addAtFront("Hola");
+
+        // When
+        list.addAtFront("Mundo");
+
+        // Then
+        int size = list.getSize();
+
+        Assertions.assertEquals(2, size);
+        Assertions.assertEquals("Mundo", list.getAt(0));
+        Assertions.assertEquals("Hola", list.getAt(1));
+    }
+
+    @Test
+    public void givenANewList_whenAddAtTailAnElement_thenSizeIsOne() throws NotNullValuesAllowedException {
+        // Given
+        ArrayList<String> list = new ArrayList<>();
+
+        // When
+        list.addAtTail("Hola");
+
+        // Then
+        int size = list.getSize();
+
+        Assertions.assertEquals(1, size);
+        Assertions.assertEquals("Hola", list.getAt(0));
+    }
+
+    @Test
+    public void givenAListWith1Element_whenAddAtTailAnElement_thenSizeIsTwo() throws NotNullValuesAllowedException {
+        // Given
+        ArrayList<String> list = new ArrayList<>();
+
+        list.addAtTail("Hola");
+
+        // When
+        list.addAtTail("Mundo");
+
+        // Then
+        int size = list.getSize();
+
+        Assertions.assertEquals(2, size);
+        Assertions.assertEquals("Hola", list.getAt(0));
+        Assertions.assertEquals("Mundo", list.getAt(1));
+    }
+
+    @Test
+    public void givenAListWithOneElement_whenRemove_thenSizeIsZero() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
+
+        list.addAtFront("Hola");
+
+        // When:
+        list.remove(0);
+
+        // Then:
+        int size = list.getSize();
+
+        Assertions.assertEquals(0, size);
+
+    }
+
+    @Test
+    public void givenAListWithTwoElements_whenRemoveIndex0_thenSizeIsOne() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
+
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
+
+        // When:
+        list.remove(0);
+
+        // Then:
+        int size = list.getSize();
+
+        Assertions.assertEquals(1, size);
+        Assertions.assertEquals("Mundo", list.getAt(0));
+
+    }
+
+    @Test
+    public void givenAListWithTwoElements_whenRemoveIndex3_thenNotValidIndexExceptionIsThrown() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
+
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
+
+        // When:
+        // Then:
+        Assertions.assertThrows(NotValidIndexException.class, () -> list.remove(3));
     }
 
     @Test
     public void givenAListWithTwoElements_whenAddAtFrontNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
-        //Given:
-        ArrayList<String> array=new ArrayList<>(); //Crea un objeto de la lista
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        //Then:
-        Assertions.assertThrows(NotNullValuesAllowedException.class,()->array.addAtFront(null));
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
+
+        // When:
+        // Then:
+        Assertions.assertThrows(NotNullValuesAllowedException.class, () -> list.addAtFront(null));
     }
 
     @Test
-    public void givenANewList_whenGetSize_thenResultIsZero() {
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
+    public void givenAListWithTwoElements_whenAddAtTailNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        int sizeOfList = array.getSize();
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
 
-        //Then:
-        Assertions.assertEquals(0, sizeOfList, "Size of list after creation must be zero."); //Valida que el tamaño sea 1
+        // When:
+        // Then:
+        Assertions.assertThrows(NotNullValuesAllowedException.class, () -> list.addAtTail(null));
     }
 
     @Test
-    public void givenANewList_whenAddAtFront_thenSizeIsOne() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
+    public void givenAListWithTwoElements_whenSetAtNullValue_thenNotNullValuesAllowedExceptionIsThrown() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtFront("Hola");
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
 
-        //When:
-        int sizeOfList = array.getSize();
-
-        //Then:
-        Assertions.assertEquals(1, sizeOfList);
-        Assertions.assertEquals("Hola", array.getAt(0));
+        // When:
+        // Then:
+        Assertions.assertThrows(NotNullValuesAllowedException.class, () -> list.setAt(0, null));
     }
 
     @Test
-    public void givenAListWithOneElement_whenAddAtFront_thenSizeIsTwo() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
+    public void givenAListWithTwoElements_whenSetAtIndex3_thenNotValidIndexExceptionIsThrown() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>(5);
 
-        array.addAtFront("Hola");
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
 
-        //When:
-        array.addAtFront("Mundo");
-
-        //Then:
-        int sizeOfList = array.getSize();
-
-        Assertions.assertEquals(2, sizeOfList);
-        Assertions.assertEquals("Mundo", array.getAt(0));
-        Assertions.assertEquals("Hola", array.getAt(1));
+        // When:
+        // Then:
+        Assertions.assertThrows(NotValidIndexException.class, () -> list.setAt(3, "Valor"));
     }
 
     @Test
-    public void givenANewList_whenAddAtTail_thenSizeIsOne() throws NotNullValuesAllowedException {
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
+    public void givenAListWithTwoElements_whenRemoveIndex1_thenSizeIsOne() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtTail("Hola");
+        list.addAtFront("Hola");
+        list.addAtTail("Mundo");
 
-        //When:
-        int sizeOfList = array.getSize();
+        // When:
+        list.remove(1);
 
-        //Then:
-        Assertions.assertEquals(1, sizeOfList);
-        Assertions.assertEquals("Hola", array.getAt(0));
+        // Then:
+        int size = list.getSize();
+
+        Assertions.assertEquals(1, size);
+        Assertions.assertEquals("Hola", list.getAt(0));
+
     }
 
     @Test
-    public void givenAListWithOneElement_whenAddAtTail_thenSizeIsTwo() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
+    public void givenAListWith3Elements_whenRemoveElementAtTail_thenSizeIsTwo() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtTail("Hola");
+        list.addAtFront("Adios");
+        list.addAtTail("Mundo");
+        list.addAtTail("Cruel");
 
-        //When:
-        array.addAtTail("Mundo");
+        // When:
+        list.remove(2);
 
-        //Then:
-        int sizeOfList = array.getSize();
+        // Then:
+        int size = list.getSize();
 
-        Assertions.assertEquals(2, sizeOfList);
-        Assertions.assertEquals("Hola", array.getAt(0));
-        Assertions.assertEquals("Mundo", array.getAt(1));
+        Assertions.assertEquals(2, size);
+        Assertions.assertEquals("Adios", list.getAt(0));
+        Assertions.assertEquals("Mundo", list.getAt(1));
+
     }
 
     @Test
-    public void givenAListWithOneElement_whenRemove_thenSizeIsZero() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
-        array.addAtFront("Hola");
+    public void givenAListWithThreeElements_whenRemoveIndex1_thenSizeIsTwo() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        array.remove(0);
+        list.addAtTail("Mundo");
+        list.addAtTail("Cruel");
+        list.addAtFront("Adios");
 
-        //Then:
-        int sizeOfList = array.getSize();
+        // When:
+        list.remove(1);
 
-        Assertions.assertEquals(0,sizeOfList);
+        // Then:
+        int size = list.getSize();
+
+        Assertions.assertEquals(2, size);
+        Assertions.assertEquals("Adios", list.getAt(0));
+        Assertions.assertEquals("Cruel", list.getAt(1));
+
     }
 
     @Test
-    public void givenAListWithTwoElements_whenRemove_thenSizeIsOne() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>();
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
+    public void givenAListWithThreeElements_whenRemoveAll_thenSizeIsZero() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        //When:
-        array.remove(0);
+        list.addAtTail("Mundo");
+        list.addAtTail("Cruel");
+        list.addAtFront("Adios");
 
-        //Then:
-        int sizeOfList = array.getSize();
+        // When:
+        list.removeAll();
 
-        Assertions.assertEquals(1,sizeOfList);
-        Assertions.assertEquals("Mundo",array.getAt(0));
-    }
+        // Then:
+        int size = list.getSize();
 
-
-    @Test
-    public void givenAListWithTwoElements_whenRemoveIndex1_thenSizeIsOne() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
-        array.addAtFront("Hola");
-        array.addAtTail("Mundo");
-
-        //When:
-        array.remove(1);
-
-        //Then:
-        int sizeOfList = array.getSize();
-
-        Assertions.assertEquals(1,sizeOfList);
-        Assertions.assertEquals("Hola",array.getAt(0));
+        Assertions.assertEquals(0, size);
     }
 
     @Test
-    public void givenAListWithThreeElements_whenRemoveIndex1_thenSizeIsTwo() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
+    public void givenAListWithTwoElements_whenSetAtZero_thenElementIsModified() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtTail("Mundo");
-        array.addAtTail("Cruel");
-        array.addAtFront("Adiós");
+        list.addAtTail("Mundo");
+        list.addAtFront("Adios");
 
-        //When:
-        array.remove(1);
+        // When:
+        list.setAt(0, "Hola");
 
-        //Then:
-        int sizeOfList = array.getSize();
+        // Then:
+        int size = list.getSize();
 
-        Assertions.assertEquals(2,sizeOfList);
-        Assertions.assertEquals("Adiós",array.getAt(0));
-        Assertions.assertEquals("Cruel",array.getAt(1));
+        Assertions.assertEquals(2, size);
+        Assertions.assertEquals("Hola", list.getAt(0));
+        Assertions.assertEquals("Mundo", list.getAt(1));
     }
 
     @Test
-    public void givenAListWithThreeElements_whenRemoveElementAtTail_thenSizeIsTwo() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
+    public void givenAListWith3Elements_whenGetIterator_thenIteratorWorksOverAllThreeElements() throws NotNullValuesAllowedException {
+        // Given:
+        ArrayList<String> list = new ArrayList<>();
 
-        array.addAtFront("Adiós");
-        array.addAtTail("Mundo");
-        array.addAtTail("Cruel");
+        list.addAtFront("Adios");
+        list.addAtTail("Mundo");
+        list.addAtTail("Cruel");
 
-        //When:
-        array.remove(2);
+        // When:
+        Iterator<String> iterator = list.getIterator();
 
-        //Then:
-        int sizeOfList = array.getSize();
+        // Then:
+        int size = list.getSize();
 
-        Assertions.assertEquals(2,sizeOfList);
-        Assertions.assertEquals("Adiós",array.getAt(0));
-        Assertions.assertEquals("Mundo",array.getAt(1));
-    }
-
-    @Test
-    public void givenAListWithThreeElements_whenRemoveAll_thenSizeIsZero() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
-
-        array.addAtFront("Adiós");
-        array.addAtTail("Mundo");
-        array.addAtTail("Cruel");
-
-        //When:
-        array.removeAll();
-
-        //Then:
-        int sizeOfList = array.getSize();
-
-        Assertions.assertEquals(0,sizeOfList);
-    }
-
-    @Test
-    public void givenAListWithTwoElements_whenSetAt_thenElementIsModified() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
-
-        array.addAtTail("Mundo");
-        array.addAtFront("Adiós");
-
-        //When:
-        array.setAt(0,"Hola");
-
-        //Then:
-        int sizeOfList = array.getSize();
-
-        Assertions.assertEquals(2,sizeOfList);
-        Assertions.assertEquals("Hola",array.getAt(0));
-        Assertions.assertEquals("Mundo",array.getAt(1));
-    }
-
-    @Test
-    public void givenAListWithThreeElements_whenGetIterator_thenIteratorWorksOverThreeElements() throws NotNullValuesAllowedException{
-        //Given:
-        ArrayList<String> array = new ArrayList<>(); //Crea un objeto de la lista
-
-        array.addAtFront("Adiós");
-        array.addAtTail("Mundo");
-        array.addAtTail("Cruel");
-
-        //When:
-        Iterator<String> iterator = array.getIterator();
-
-        //Then:
-        int sizeOfList = array.getSize();
-
-        Assertions.assertEquals(3,sizeOfList);
+        Assertions.assertEquals(3, size);
         Assertions.assertNotNull(iterator);
         Assertions.assertTrue(iterator.hasNext());
-        Assertions.assertEquals("Adiós",iterator.next());
+        Assertions.assertEquals("Adios", iterator.next());
         Assertions.assertTrue(iterator.hasNext());
-        Assertions.assertEquals("Mundo",iterator.next());
+        Assertions.assertEquals("Mundo", iterator.next());
         Assertions.assertTrue(iterator.hasNext());
-        Assertions.assertEquals("Cruel",iterator.next());
+        Assertions.assertEquals("Cruel", iterator.next());
         Assertions.assertFalse(iterator.hasNext());
     }
 }
